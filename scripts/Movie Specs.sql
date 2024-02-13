@@ -82,6 +82,17 @@ ORDER BY rating.imdb_rating DESC;
 
 --7. Which have a higher average rating, movies which are over two hours long or movies which are under two hours?
 
+SELECT length_in_min, ROUND(avg(imdb_rating),2), 
+CASE
+	WHEN length_in_min >= 120 THEN '>2 Hours'
+	ELSE '<2 Hours'
+END AS length_of_movie, ROUND(avg(imdb_rating), 2) AS avg_rating
+FROM specs
+INNER JOIN rating
+USING (movie_id)
+GROUP BY specs.length_in_min
+ORDER BY avg_rating DESC;
+
 
 
 
